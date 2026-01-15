@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Loukas ReaScripts" commit="initial">
-
+<index version="1" name="Loukas ReaScripts">
   <category name="Productivity">
-   <reapack name="Kanban Board" type="script" desc="Kanban Board for REAPER">
-      <version name="1.0.0" author="Loukas" time="2024-03-20T12:00:00Z">
+    <reapack name="Kanban Board" type="script">
+      <version name="1.0.0" author="Loukas">
         <source main="main">Scripts/Kanban/Kanban.lua</source>
         <source>Scripts/Kanban/calendar.lua</source>
         <source>Scripts/Kanban/card.lua</source>
         <source>Scripts/Kanban/checklist.lua</source>
         <source>Scripts/Kanban/kanban_stack_utils.lua</source>
-        <source>Scripts/Kanban/dkjson.lua</source>
+        <source>Scripts/Kanban/lib/dkjson.lua</source>
       </version>
     </reapack>
   </category>
-
 </index>
