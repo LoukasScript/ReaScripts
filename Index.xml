@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Loukas ReaScripts">
+<index version="1" name="Loukas ReaScripts" commit="initial">
 
   <category name="Productivity">
-    <reapack
-      name="Kanban Board"
-      type="script"
-      file="Scripts/Kanban/Kanban.lua"
-    />
+   <reapack name="Kanban Board" type="script" desc="Kanban Board for REAPER">
+      <version name="0.91" author="Loukas" time="2024-03-20T12:00:00Z">
+        <source main="main">Scripts/Kanban/Kanban.lua</source>
+      </version>
+    </reapack>
   </category>
 
 </index>
