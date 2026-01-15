@@ -3,12 +3,12 @@
   <category name="Productivity">
     <reapack name="Kanban Board" type="script">
       <version name="1.0.0" author="Loukas">
-        <source main="main">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
-        <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/calendar.lua</source>
-        <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/card.lua</source>
-        <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/checklist.lua</source>
-        <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/kanban_stack_utils.lua</source>
-        <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/lib/dkjson.lua</source>
+        <source main="main" file="Scripts/Kanban/Kanban.lua">Scripts/Kanban/Kanban.lua</source>
+        <source file="Scripts/Kanban/calendar.lua">Scripts/Kanban/calendar.lua</source>
+        <source file="Scripts/Kanban/card.lua">Scripts/Kanban/card.lua</source>
+        <source file="Scripts/Kanban/checklist.lua">Scripts/Kanban/checklist.lua</source>
+        <source file="Scripts/Kanban/kanban_stack_utils.lua">Scripts/Kanban/kanban_stack_utils.lua</source>
+        <source file="Scripts/Kanban/lib/dkjson.lua">Scripts/Kanban/lib/dkjson.lua</source>
       </version>
     </reapack>
   </category>

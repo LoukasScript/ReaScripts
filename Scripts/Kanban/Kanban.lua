@@ -15,7 +15,6 @@ dofile(script_path .. "calendar.lua")
 dofile(script_path .. "card.lua")
 dofile(script_path .. "checklist.lua")
 dofile(script_path .. "kanban_stack_utils.lua")
-dofile(script_path .. "lib/dkjson.lua")
 
 
 -- =============================================================================
@@ -33,7 +32,7 @@ if ctx then
 end
 ctx = reaper.ImGui_CreateContext("Kanban Board")
 
-local json = dofile(script_path .. "dkjson.lua")
+local json = dofile(script_path .. "lib/dkjson.lua")
 
 -- Lua version compatibility for unpack
 local unpack = table.unpack or unpack
