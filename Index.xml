@@ -3,8 +3,13 @@
 
   <category name="Productivity">
    <reapack name="Kanban Board" type="script" desc="Kanban Board for REAPER">
-      <version name="0.91" author="Loukas" time="2024-03-20T12:00:00Z">
+      <version name="1.0.0" author="Loukas" time="2024-03-20T12:00:00Z">
         <source main="main">Scripts/Kanban/Kanban.lua</source>
+        <source>Scripts/Kanban/calendar.lua</source>
+        <source>Scripts/Kanban/card.lua</source>
+        <source>Scripts/Kanban/checklist.lua</source>
+        <source>Scripts/Kanban/kanban_stack_utils.lua</source>
+        <source>Scripts/Kanban/dkjson.lua</source>
       </version>
     </reapack>
   </category>
