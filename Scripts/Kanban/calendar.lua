@@ -1,4 +1,7 @@
--- calendar.lua: A simple, reusable calendar widget for ReaImGui.
+-- Kanban helper: Calendar
+-- Author: Loukas
+-- Internal module (loaded by Kanban.lua)
+
 
 local M = {}
 local unpack = table.unpack or unpack

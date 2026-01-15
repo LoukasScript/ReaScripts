@@ -1,15 +1,12 @@
--- card.lua: card module for Kanban v 1.03
-
-local retval, script_path = reaper.get_action_context()
-local base_path = script_path:match("(.*[/\\])")
-local checklist = dofile(base_path .. "checklist.lua")
-local json = dofile(base_path .. "dkjson.lua")
-local calendar = dofile(base_path .. "calendar.lua")
+-- Kanban helper: Card
+-- Author: Loukas
+-- Internal module (loaded by Kanban.lua)
 
 local M = {}
 
 -- Lua version compatibility for unpack
 local unpack = table.unpack or unpack
+
 
 local priorities = {
     { id = 0, text = "--",           color = nil },

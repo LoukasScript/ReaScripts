@@ -1,8 +1,22 @@
--- @Kanban Board for REAPER
--- @version 1.01
--- @author Loukas                          
--- Requires:    REAPER v7.45+, ReaImGui v0.10+
--- @changelog: Extended filtering to include checklist items
+-- @description Kanban Board for REAPER
+-- @version 1.0.0
+-- @author Loukas
+-- @about
+--   A Kanban-style task board for managing tasks directly inside REAPER.
+--   Supports cards, checklists and calendar-based organization.
+--                          
+-- @requires REAPER v7.45+, ReaImGui v0.10+
+-- @changelog
+--   + Initial release
+
+local script_path = debug.getinfo(1, "S").source:match("@?(.*[/\\])")
+
+dofile(script_path .. "calendar.lua")
+dofile(script_path .. "card.lua")
+dofile(script_path .. "checklist.lua")
+dofile(script_path .. "kanban_stack_utils.lua")
+dofile(script_path .. "lib/dkjson.lua")
+
 
 -- =============================================================================
 -- || SCRIPT INITIALIZATION & MODULE LOADING                                  ||

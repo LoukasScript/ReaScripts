@@ -1,11 +1,10 @@
--- checklist.lua: Modulair checklist component voor ReaImGui
-
-local retval, script_path = reaper.get_action_context()
-local base_path = script_path:match("(.*[/\\])")
-local calendar = dofile(base_path .. "calendar.lua")
+-- Kanban helper: Checklist
+-- Author: Loukas
+-- Internal module (loaded by Kanban.lua)
 
 local M = {}
 local unpack = table.unpack or unpack
+
 
 -- Helper om een datumstring te parsen naar een Unix timestamp.
 -- Gekopieerd uit card.lua voor modulaire onafhankelijkheid.

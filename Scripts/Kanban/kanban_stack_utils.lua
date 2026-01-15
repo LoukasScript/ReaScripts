@@ -1,4 +1,8 @@
--- kanban_stack_utils.lua v1
+-- Kanban helper: kanban_stack_utils
+-- Author: Loukas
+-- Internal module (loaded by Kanban.lua)
+
+
 local M = {}
 
 -- Configuration
