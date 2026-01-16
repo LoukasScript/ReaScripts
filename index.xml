@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="Loukas ReaScripts">
-
+<index version="1">
+  <name>Loukas ReaScripts</name>
+  
   <category name="Productivity">
-    <reapack
-      name="Kanban Board"
-      type="script"
-      desc="Kanban-style task board for REAPER"
-      author="Loukas"
-      version="1.0.0"
-      file="Scripts/Kanban/Kanban.lua"
-    />
+    <reapack name="Kanban Board"
+             type="script"
+             version="1.0.0">
+      <source>https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
+      <description>Kanban-style task board for REAPER</description>
+      <author>Loukas</author>
+      <link>https://github.com/LoukasScript/ReaScripts</link>
+      <metadata>
+        <description>Kanban-style task board for REAPER</description>
+      </metadata>
+    </reapack>
   </category>
-
 </index>
