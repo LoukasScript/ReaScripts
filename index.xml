@@ -10,7 +10,7 @@
         <source main="main" file="Kanban.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
         <source file="calendar.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/calendar.lua</source>
         <source file="card.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/card.lua</source>
-        <source file="checklist.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Checklist.lua</source>
+        <source file="checklist.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/checklist.lua</source>
         <source file="kanban_stack_utils.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/kanban_stack_utils.lua</source>
         <source file="lib/dkjson.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/lib/dkjsain.lua</source>
         <link rel="website">https://github.com/LoukasScript/ReaScripts</link>
