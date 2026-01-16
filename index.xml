@@ -5,15 +5,11 @@
   </metadata>
   
   <category name="Productivity">
-    <reapack name="Kanban Board"
-             type="script"
-             version="1.0.0"
-             author="Loukas"
-             desc="Kanban-style task board for REAPER">
-      <source main="main">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
-      <description>Kanban-style task board for REAPER</description>
-      <author>Loukas</author>
-      <link>https://github.com/LoukasScript/ReaScripts</link>
+    <reapack name="Kanban Board" type="script" desc="Kanban-style task board for REAPER">
+      <version name="1.0.0" author="Loukas" time="2023-10-27T12:00:00Z">
+        <source main="main">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
+        <link rel="website">https://github.com/LoukasScript/ReaScripts</link>
+      </version>
     </reapack>
   </category>
 </index>
