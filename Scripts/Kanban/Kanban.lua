@@ -1,3 +1,4 @@
+
 -- @description Kanban Board for REAPER
 -- @version 1.0.0
 -- @author Loukas
@@ -11,20 +12,17 @@
 
 local script_path = debug.getinfo(1, "S").source:match("@?(.*[/\\])")
 
-dofile(script_path .. "calendar.lua")
-dofile(script_path .. "card.lua")
-dofile(script_path .. "checklist.lua")
-dofile(script_path .. "kanban_stack_utils.lua")
-
+-- Load modules globally so they are accessible to each other
+calendar = dofile(script_path .. "calendar.lua")
+checklist = dofile(script_path .. "checklist.lua")
+kanban_stack_utils = dofile(script_path .. "kanban_stack_utils.lua")
 
 -- =============================================================================
 -- || SCRIPT INITIALIZATION & MODULE LOADING                                  ||
 -- =============================================================================
 
 -- 📦 Load stack safety utilities
-local retval, script_path = reaper.get_action_context()
-script_path = script_path:match("(.*[/\\])")
-local stack_utils = dofile(script_path .. "kanban_stack_utils.lua")
+local stack_utils = kanban_stack_utils
 
 -- 🧠 ImGui Context Setup
 if ctx then
