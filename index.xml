@@ -6,7 +6,7 @@
   
   <category name="Productivity">
     <reapack name="Kanban Board" type="script" desc="Kanban-style task board for REAPER">
-      <version name="1.0.2" author="Loukas" time="2026-01-16T15:00:00Z">
+      <version name="1.0.3" author="Loukas" time="2026-01-16T15:00:00Z">
         <source main="main" file="Kanban.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
         <source file="calendar.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/calendar.lua</source>
         <source file="card.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/card.lua</source>
