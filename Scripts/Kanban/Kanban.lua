@@ -1,6 +1,6 @@
 
 -- @description Kanban Board for REAPER
--- @version 1.0.0
+-- @version 1.0.3
 -- @author Loukas
 -- @about
 --   A Kanban-style task board for managing tasks directly inside REAPER.
