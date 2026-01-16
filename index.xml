@@ -10,36 +10,6 @@
       version="1.0.0"
       file="Scripts/Kanban/Kanban.lua"
     />
-
-    <reapack
-      name="Kanban helper: Card"
-      type="script"
-      file="Scripts/Kanban/card.lua"
-    />
-
-    <reapack
-      name="Kanban helper: Checklist"
-      type="script"
-      file="Scripts/Kanban/checklist.lua"
-    />
-
-    <reapack
-      name="Kanban helper: Calendar"
-      type="script"
-      file="Scripts/Kanban/calendar.lua"
-    />
-
-    <reapack
-      name="Kanban helper: Stack Utils"
-      type="script"
-      file="Scripts/Kanban/kanban_stack_utils.lua"
-    />
-
-    <reapack
-      name="Kanban helper: dkjson"
-      type="script"
-      file="Scripts/Kanban/lib/dkjson.lua"
-    />
   </category>
 
 </index>
