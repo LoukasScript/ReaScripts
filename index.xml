@@ -4,7 +4,7 @@
     <name>Loukas ReaScripts</name>
   </metadata>
   
-  <category name="Productivity">
+  <category name="Kanban Board">
     <reapack name="Kanban Board" type="script" desc="Kanban-style task board for REAPER">
       <version name="1.0.4" author="Loukas" time="2026-01-17T12:00:00Z">
         <source main="main" file="Kanban Board.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/Kanban%20Board.lua</source>
