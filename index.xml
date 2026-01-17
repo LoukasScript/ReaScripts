@@ -6,13 +6,13 @@
   
   <category name="Productivity">
     <reapack name="Kanban Board" type="script" desc="Kanban-style task board for REAPER">
-      <version name="1.0.3" author="Loukas" time="2026-01-16T15:00:00Z">
-        <source main="main" file="Kanban.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/Kanban.lua</source>
-        <source file="calendar.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/calendar.lua</source>
-        <source file="card.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/card.lua</source>
-        <source file="checklist.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/checklist.lua</source>
-        <source file="kanban_stack_utils.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/kanban_stack_utils.lua</source>
-        <source file="lib/dkjson.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban/lib/dkjson.lua</source>
+      <version name="1.0.0" author="Loukas" time="2025-05-21T12:00:00Z">
+        <source main="main" file="Kanban Board.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/Kanban%20Board.lua</source>
+        <source file="calendar.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/calendar.lua</source>
+        <source file="card.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/card.lua</source>
+        <source file="checklist.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/checklist.lua</source>
+        <source file="kanban_stack_utils.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/kanban_stack_utils.lua</source>
+        <source file="lib/dkjson.lua">https://raw.githubusercontent.com/LoukasScript/ReaScripts/main/Scripts/Kanban%20Board/lib/dkjson.lua</source>
         <link rel="website">https://github.com/LoukasScript/ReaScripts</link>
       </version>
     </reapack>
