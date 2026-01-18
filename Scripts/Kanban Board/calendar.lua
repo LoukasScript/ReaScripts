@@ -1,6 +1,6 @@
 -- Kanban helper: Calendar
 -- Author: Loukas
--- Internal module (loaded by Kanban.lua)
+-- Internal module (loaded by Kanban Board.lua)
 
 
 local M = {}

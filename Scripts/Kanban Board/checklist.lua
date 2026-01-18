@@ -1,23 +1,23 @@
 -- Kanban helper: Checklist
 -- Author: Loukas
--- Internal module (loaded by Kanban.lua)
+-- Internal module (loaded by Kanban Board.lua)
 
 local M = {}
 local unpack = table.unpack or unpack
 
 
--- Helper om een datumstring te parsen naar een Unix timestamp.
--- Gekopieerd uit card.lua voor modulaire onafhankelijkheid.
+-- Helper to parse a date string into a Unix timestamp.
+-- Copied from card.lua for modular independence.
 local function parse_date(date_str)
     if not date_str or date_str == "" then return nil end
 
-    -- Probeer DD-MM-YYYY formaat
+    -- Try DD-MM-YYYY format
     local d, m, y = date_str:match("^(%d%d)-(%d%d)-(%d%d%d%d)$")
     if d then
         return os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d), hour = 23, min = 59, sec = 59 })
     end
 
-    -- Probeer DD-MM-YY formaat
+    -- Try DD-MM-YY format
     d, m, y = date_str:match("^(%d%d)-(%d%d)-(%d%d)$")
     if d then
         local year = tonumber(y)
@@ -25,7 +25,7 @@ local function parse_date(date_str)
         return os.time({ year = year, month = tonumber(m), day = tonumber(d), hour = 23, min = 59, sec = 59 })
     end
 
-    -- Probeer YYYY-MM-DD formaat (voor backwards compatibility)
+    -- Try YYYY-MM-DD format (for backwards compatibility)
     y, m, d = date_str:match("^(%d%d%d%d)-(%d%d)-(%d%d)$")
     if y then
         return os.time({ year = tonumber(y), month = tonumber(m), day = tonumber(d), hour = 23, min = 59, sec = 59 })
@@ -34,7 +34,7 @@ local function parse_date(date_str)
     return nil
 end
 
--- Bepaalt de status van de deadline voor een checklist item.
+-- Determines the status of the deadline for a checklist item.
 local function get_due_date_status(due_date_str, is_checked)
     if is_checked then return "complete" end
     if not due_date_str or due_date_str == "" then return "none" end
@@ -81,12 +81,12 @@ local function draw_checklist_item_dropzone(ctx, checklist_id, insert_pos, pendi
     end
 end
 
---- Tekent een volledige checklist en beheert de interactie.
+--- Draws up a complete checklist and manages the interaction.
 -- @param ctx ImGui context.
--- @param checklist_obj De checklist tabel.
--- @param checklist_id Een unieke ID voor deze checklist in de UI.
--- @param save_board_func Functie om het board op te slaan.
--- @return boolean True als de checklist verwijderd moet worden.
+-- @param checklist_obj checklist tabel.
+-- @param checklist_id A unique ID for this checklist in the UI.
+-- @param save_board_func 
+-- @return boolean True if the checklist needs to be removed.
 function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
     local command = nil
     local pending_item_move = {} -- Use a table to pass by reference.
@@ -98,17 +98,16 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
 
     reaper.ImGui_PushID(ctx, checklist_id)
 
-    -- Sectie: Titel en actieknoppen
+    -- Section: Title and action buttons
     reaper.ImGui_BeginGroup(ctx)
         reaper.ImGui_PushFont(ctx, ui_state.main_font, ui_state.checklist_title_font_size or 18)
-        reaper.ImGui_Text(ctx, "📋")  -- Clipboard symbool
+        reaper.ImGui_Text(ctx, "📋")  -- Clipboard symbol
         reaper.ImGui_SameLine(ctx)
         reaper.ImGui_PopFont(ctx)
 
-        -- API-wijziging: ImGui_GetContentRegionAvailWidth is niet beschikbaar in deze versie.
-        -- We gebruiken ImGui_GetContentRegionAvail, die breedte en hoogte retourneert.
+        -- Use ImGui_GetContentRegionAvail, which returns width and height.
         local content_w = ui_state.current_content_width or reaper.ImGui_GetContentRegionAvail(ctx)
-        local buttons_width = 190 -- Geschatte breedte voor "Save as Template" + "X" + spacing
+        local buttons_width = 190 -- Estimated width for “Save as Template” + “X” + spacing
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_FrameBg(), ui_state.input_bg_color)
         reaper.ImGui_PushItemWidth(ctx, content_w - buttons_width)
         local changed, new_name = reaper.ImGui_InputText(ctx, "##name", checklist_obj.name)
@@ -117,7 +116,8 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
         reaper.ImGui_PopStyleColor(ctx)
 
         reaper.ImGui_SameLine(ctx)
-        -- Maak de knoppen visueel zachter met een transparante achtergrond.
+
+        -- Make the buttons visually softer with a transparent background.
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0)
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.1))
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.2))
@@ -127,15 +127,14 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
         reaper.ImGui_PopStyleColor(ctx, 3)
     reaper.ImGui_EndGroup(ctx)
 
-    -- Voortgangsbalk
+    -- Progress bar
     local total, checked = #checklist_obj.items, 0
     for _, item in ipairs(checklist_obj.items) do if item.checked then checked = checked + 1 end end
     local progress = total > 0 and (checked / total) or 0
     
     local draw_list = reaper.ImGui_GetWindowDrawList(ctx)
     local pos_x, pos_y = reaper.ImGui_GetCursorScreenPos(ctx)
-    -- API-wijziging: ImGui_GetContentRegionAvailWidth is niet beschikbaar in deze versie.
-    -- We gebruiken ImGui_GetContentRegionAvail, die breedte en hoogte retourneert.
+  
     local bar_width = ui_state.current_content_width or reaper.ImGui_GetContentRegionAvail(ctx)
     local progress_bar_height = 8
     local rounding = 4.0
@@ -152,7 +151,7 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
     local percent_text = string.format("%d%%", math.floor(progress * 100))
     reaper.ImGui_Text(ctx, percent_text)
     
-    -- Collapse/Expand knop toevoegen
+    -- Collapse/Expand button
     reaper.ImGui_SameLine(ctx)
     local collapse_button_text = checklist_obj.collapsed and "▶ Expand" or "▼ Collapse"
     if reaper.ImGui_Button(ctx, collapse_button_text) then
@@ -164,9 +163,9 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
     end
     
     reaper.ImGui_PopFont(ctx)
-    reaper.ImGui_Dummy(ctx, 0, 6) -- Extra ruimte voor de items
+    reaper.ImGui_Dummy(ctx, 0, 6) -- Extra space for items
     
-    -- Checklist items - alleen tonen als niet gecollapsed
+    -- Checklist items - only show if not collapsed
     local item_to_remove = nil
 
     if not checklist_obj.collapsed then
@@ -178,7 +177,7 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
 
             -- Drag handle
             -- Use a Selectable as the drag source. It's an interactive item, which is required
-            -- by BeginDragDropSource and fixes the assertion failure. We make it small to act as a handle.
+            
             reaper.ImGui_Selectable(ctx, "⠿", false, reaper.ImGui_SelectableFlags_None(), 15, 0)
             if reaper.ImGui_IsItemHovered(ctx) then
                 reaper.ImGui_SetTooltip(ctx, "Drag to reorder")
@@ -197,16 +196,12 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
             reaper.ImGui_SameLine(ctx)
 
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_FrameBg(), ui_state.input_bg_color)
-            -- Laat het tekstveld de beschikbare ruimte opvullen tussen de checkbox en de deadline-input.
-            -- De breedte van de elementen op de lijn wordt hier geschat om de breedte van het tekstveld te bepalen.
-            -- De vorige methode, waarbij we de breedte van het tekstveld handmatig berekenden, was niet robuust.
-            -- We gebruiken nu een superieure techniek: PushItemWidth met een negatieve waarde.
-            -- Dit vertelt ImGui om alle beschikbare ruimte te gebruiken, MINUS de ruimte voor de knoppen aan de rechterkant.
-            -- Dit is de meest betrouwbare manier om te zorgen dat alle knoppen zichtbaar blijven.
+            -- Let the text field fill the available space between the checkbox and the deadline input.
+            
             local deadline_width = 100
-            local to_card_width = 70  -- Geschatte breedte voor "To Card" knop
-            local remove_width = 35   -- Geschatte breedte voor "-" knop
-            local spacing = 15        -- Geschatte ruimte voor de 'SameLine' aanroepen
+            local to_card_width = 70  -- Estimated width for "To Card" button
+            local remove_width = 35   -- Estimated width for "-" button
+            local spacing = 15        -- Estimated width for 'SameLine' calls
             local right_side_total_width = deadline_width + to_card_width + remove_width + spacing
 
             reaper.ImGui_PushItemWidth(ctx, -right_side_total_width)
@@ -216,13 +211,13 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
             if text_changed then item.text = new_text; save_board_func() end
             reaper.ImGui_SameLine(ctx)
 
-            -- Deadline input met statuskleur
-            item.due_date = item.due_date or nil -- Zorg dat het veld bestaat voor oude data.
+            -- Deadline input with status color
+            item.due_date = item.due_date or nil 
             local status = get_due_date_status(item.due_date, item.checked)
             local status_color
-            if status == "overdue" then status_color = {1.0, 0.3, 0.3, 1.0} -- Rood
-            elseif status == "due_soon" then status_color = {1.0, 0.8, 0.3, 1.0} -- Geel
-            elseif status == "complete" then status_color = {0.4, 0.8, 0.4, 1.0} -- Groen
+            if status == "overdue" then status_color = {1.0, 0.3, 0.3, 1.0} -- Red
+            elseif status == "due_soon" then status_color = {1.0, 0.8, 0.3, 1.0} -- Yellow
+            elseif status == "complete" then status_color = {0.4, 0.8, 0.4, 1.0} -- Green
             end
 
             if status_color then
@@ -233,16 +228,16 @@ function M.draw(ctx, checklist_obj, checklist_id, save_board_func, ui_state)
 local popup_id = "calendar_popup_item_" .. j
 local deadline_text = item.due_date or "Set Date"
 
--- Slimme popup positionering
+-- Smart pop-up positioning
 local function calculate_best_popup_position(ctx, button_x, button_y)
     local window_x, window_y = reaper.ImGui_GetWindowPos(ctx)
     local window_width, window_height = reaper.ImGui_GetWindowSize(ctx)
     
-    -- Kalender afmetingen
+    -- Calendar dimensions
     local calendar_width = 250
     local calendar_height = 200
     
-    -- Bereken beschikbare ruimte in alle richtingen
+    -- Calculate available space in all directions
     local available_right = window_x + window_width - button_x
     local available_bottom = window_y + window_height - button_y
     local available_left = button_x - window_x
@@ -250,21 +245,21 @@ local function calculate_best_popup_position(ctx, button_x, button_y)
     
     local popup_x, popup_y = button_x, button_y + reaper.ImGui_GetFrameHeight(ctx)
     
-    -- Optimaliseer horizontale positie
+    -- Optimize horizontal position
     if available_right < calendar_width then
         if available_left >= calendar_width then
-            popup_x = button_x - calendar_width  -- Plaats links van de knop
+            popup_x = button_x - calendar_width  -- Place to the left of the button
         else
-            popup_x = window_x + (window_width - calendar_width) / 2  -- Centreer
+            popup_x = window_x + (window_width - calendar_width) / 2  -- Center
         end
     end
     
-    -- Optimaliseer verticale positie  
+    -- Optimize vertical position  
     if available_bottom < calendar_height then
         if available_top >= calendar_height then
-            popup_y = button_y - calendar_height  -- Plaats boven de knop
+            popup_y = button_y - calendar_height  -- Place above the button
         else
-            popup_y = window_y + (window_height - calendar_height) / 2  -- Centreer
+            popup_y = window_y + (window_height - calendar_height) / 2  -- Center
         end
     end
     
@@ -274,7 +269,7 @@ end
 local button_x, button_y = reaper.ImGui_GetItemRectMin(ctx)
 local popup_x, popup_y = calculate_best_popup_position(ctx, button_x, button_y)
 
--- Stel de popup-positie in
+-- Set the popup position
 reaper.ImGui_SetNextWindowPos(ctx, popup_x, popup_y)
 
 if reaper.ImGui_Button(ctx, deadline_text, 100, 0) then
@@ -302,7 +297,7 @@ reaper.ImGui_PopStyleColor(ctx)
             if status_color then reaper.ImGui_PopStyleColor(ctx) end
 
             reaper.ImGui_SameLine(ctx)
-            -- Maak de knop visueel zachter met een transparante achtergrond.
+            -- Make the button visually softer with a transparent background.
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0)
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.1))
             reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.2))
@@ -339,7 +334,7 @@ reaper.ImGui_PopStyleColor(ctx)
             end
         end
 
-        -- Maak de knop visueel zachter met een transparante achtergrond.
+        -- Make the button visually softer with a transparent background.
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0)
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.1))
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), reaper.ImGui_ColorConvertDouble4ToU32(1, 1, 1, 0.2))
@@ -349,7 +344,7 @@ reaper.ImGui_PopStyleColor(ctx)
         end
         reaper.ImGui_PopStyleColor(ctx, 3)
     else
-        -- Toon samenvatting wanneer gecollapsed
+        -- Show summary when collapsed
         reaper.ImGui_Text(ctx, string.format("(%d items, %d%% completed)", total, math.floor(progress * 100)))
         if total > 0 then
             reaper.ImGui_SameLine(ctx)

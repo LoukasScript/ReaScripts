@@ -1,6 +1,6 @@
 -- Kanban helper: kanban_stack_utils
 -- Author: Loukas
--- Internal module (loaded by Kanban.lua)
+-- Internal module (loaded by Kanban Board.lua)
 
 
 local M = {}

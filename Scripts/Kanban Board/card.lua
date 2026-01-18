@@ -1,6 +1,6 @@
 -- Kanban helper: Card
 -- Author: Loukas
--- Internal module (loaded by Kanban.lua)
+-- Internal module (loaded by Kanban Board.lua)
 
 local M = {}
 
@@ -92,24 +92,24 @@ local function draw_deadline_popup(ctx, card_obj, save_board_func)
         reaper.ImGui_SameLine(ctx)
         local calendar_popup_id = "calendar_popup_" .. card_obj.id
         
-        -- Bepaal de positie voor de kalender-popup zodat deze binnen het hoofdvenster past
+        -- Set the position for the calendar pop-up so that it fits within the main window
         local window_x, window_y = reaper.ImGui_GetWindowPos(ctx)
         local window_width, window_height = reaper.ImGui_GetWindowSize(ctx)
         local cursor_x, cursor_y = reaper.ImGui_GetCursorScreenPos(ctx)
         
-        -- Geschatte kalenderafmetingen
+        -- Estimated calendar dimensions
         local calendar_width = 250
         local calendar_height = 200
         
-        -- Bereken beschikbare ruimte
+        -- Calculate available space
         local available_right = window_x + window_width - cursor_x
         local available_bottom = window_y + window_height - cursor_y
         
-        -- Bepaal de popup-positie
+        -- Determine the pop-up position
         local popup_x = cursor_x
         local popup_y = cursor_y + reaper.ImGui_GetFrameHeight(ctx)
         
-        -- Pas positie aan als er niet genoeg ruimte is
+        -- Adjust position if there is not enough space
         if available_right < calendar_width then
             popup_x = math.max(window_x, cursor_x - calendar_width)
         end
@@ -118,7 +118,7 @@ local function draw_deadline_popup(ctx, card_obj, save_board_func)
             popup_y = math.max(window_y, cursor_y - calendar_height)
         end
         
-        -- Stel de popup-positie in VOORDAT we de knop tekenen
+        -- Set the popup position BEFORE we draw the button
         reaper.ImGui_SetNextWindowPos(ctx, popup_x, popup_y)
         
         if reaper.ImGui_Button(ctx, "📅") then
@@ -646,13 +646,13 @@ function M.draw(ctx, board, list_idx, card_idx, editing_card, save_board_func, c
         local window_flags = reaper.ImGui_WindowFlags_None()
         if reaper.ImGui_BeginPopupModal(ctx, popup_id, true, window_flags) then
             
-            -- NIEUW: Click outside to close en Escape key
+            -- Click outside to close en Escape key
             if reaper.ImGui_IsMouseClicked(ctx, 0) then -- Links klik
                 local mouse_x, mouse_y = reaper.ImGui_GetMousePos(ctx)
                 local window_x, window_y = reaper.ImGui_GetWindowPos(ctx)
                 local window_w, window_h = reaper.ImGui_GetWindowSize(ctx)
                 
-                -- Check of klik buiten het venster is
+                -- Check whether click is outside the window
                 if mouse_x < window_x or mouse_x > window_x + window_w or
                    mouse_y < window_y or mouse_y > window_y + window_h then
                     editing_card = nil
@@ -661,14 +661,14 @@ function M.draw(ctx, board, list_idx, card_idx, editing_card, save_board_func, c
                 end
             end
             
-            -- NIEUW: Escape key to close
+            -- Escape key to close
             if reaper.ImGui_IsKeyPressed(ctx, reaper.ImGui_Key_Escape()) then
                 editing_card = nil
                 card_obj.ui_show_comments = nil
                 reaper.ImGui_CloseCurrentPopup(ctx)
             end
             
-            -- Behoud bestaande close button tooltip
+            -- close button tooltip
             if reaper.ImGui_IsWindowHovered(ctx) then
                 local window_pos_x, window_pos_y = reaper.ImGui_GetWindowPos(ctx)
                 local window_size_x, window_size_y = reaper.ImGui_GetWindowSize(ctx)
@@ -715,14 +715,14 @@ function M.draw(ctx, board, list_idx, card_idx, editing_card, save_board_func, c
 reaper.ImGui_SameLine(ctx)
 local card_options_popup_id = "card_options_popup##" .. card_obj.id
 
--- Sla de knop positie op voor later gebruik
+-- Save the button position for later use
 local button_min_x, button_min_y = reaper.ImGui_GetCursorScreenPos(ctx)
 
 if reaper.ImGui_Button(ctx, "...") then 
     reaper.ImGui_OpenPopup(ctx, card_options_popup_id)
 end
 
--- Sla de actuele knop positie op nadat de knop is getekend
+-- Save the current button position after the button has been drawn
 local actual_button_min_x, actual_button_min_y = reaper.ImGui_GetItemRectMin(ctx)
 local actual_button_max_x, actual_button_max_y = reaper.ImGui_GetItemRectMax(ctx)
 local button_height = actual_button_max_y - actual_button_min_y
@@ -733,11 +733,9 @@ end
         
 -- Card options popup
 if reaper.ImGui_BeginPopup(ctx, card_options_popup_id) then
-    -- Gebruik de opgeslagen knop positie om de popup te positioneren
     local dropdown_width = 150
     local dropdown_height = 60
     
-    -- Positioneer de popup links van de knop
     local popup_x = actual_button_min_x - dropdown_width
     local popup_y = actual_button_min_y + button_height
     
